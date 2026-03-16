@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PayHere Demo</title>
+    <link rel="stylesheet" href="/payhere.css">
+  </head>
+  <body>
+    <div class="bg"></div>
+    <main class="shell">
+      <header class="hero">
+        <p class="kicker">PayHere Sandbox Demo</p>
+        <h1>Fast, visible, and demo-ready checkout</h1>
+        <p class="lede">Generate a PayHere checkout redirect and watch webhook events arrive in real time.</p>
+      </header>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>Checkout Builder</h2>
+          <p>Fill optional fields, then launch the sandbox checkout.</p>
+        </div>
+        <form id="checkout-form" class="grid">
+          <label>
+            Order ID
+            <input name="orderId" placeholder="Leave empty for auto">
+          </label>
+          <label>
+            Amount (LKR)
+            <input name="amount" type="number" step="0.01" min="1" value="1000.00">
+          </label>
+          <label>
+            Currency
+            <input name="currency" value="LKR">
+          </label>
+          <div class="actions">
+            <button type="submit">Start Checkout</button>
+            <a class="ghost" href="/api/payhere/checkout" target="_blank" rel="noopener">Open Checkout URL</a>
+          </div>
+        </form>
+        <p class="note">
+          Make sure your env vars are set: PAYHERE_MERCHANT_ID, PAYHERE_MERCHANT_SECRET, PAYHERE_NOTIFY_URL.
+        </p>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>Webhook Events</h2>
+          <p>Latest notify payloads from PayHere.</p>
+        </div>
+        <div class="toolbar">
+          <button id="refresh">Refresh</button>
+          <a class="ghost" href="/api/payhere/events" target="_blank" rel="noopener">Open JSON</a>
+        </div>
+        <pre id="events" class="events">Waiting for events...</pre>
+      </section>
+
+      <section class="card tips">
+        <div class="card-head">
+          <h2>Demo Tips</h2>
+          <p>Keep these open during your demo.</p>
+        </div>
+        <ul class="list">
+          <li>Checkout endpoint: /api/payhere/checkout</li>
+          <li>Notify endpoint: /api/payhere/notify</li>
+          <li>Return page: /api/payhere/return</li>
+          <li>Cancel page: /api/payhere/cancel</li>
+        </ul>
+      </section>
+    </main>
+
+    <script src="/payhere.js"></script>
+  </body>
+</html>

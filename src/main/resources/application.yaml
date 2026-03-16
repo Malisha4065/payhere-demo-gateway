@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: payhere-demo
+
+payhere:
+  # Prefer setting these as environment variables for demos:
+  # PAYHERE_MERCHANT_ID, PAYHERE_MERCHANT_SECRET, PAYHERE_NOTIFY_URL
+  merchant-id: ${PAYHERE_MERCHANT_ID:}
+  merchant-secret: ${PAYHERE_MERCHANT_SECRET:}
+  sandbox: true
+  return-url: ${PAYHERE_RETURN_URL:http://localhost:8080/api/payhere/return}
+  cancel-url: ${PAYHERE_CANCEL_URL:http://localhost:8080/api/payhere/cancel}
+  notify-url: ${PAYHERE_NOTIFY_URL:}
+  currency: ${PAYHERE_CURRENCY:LKR}
+  items: ${PAYHERE_ITEMS:Test Subscription}
