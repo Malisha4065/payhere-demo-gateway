@@ -73,6 +73,24 @@ body {
   gap: 16px;
 }
 
+.status-page {
+  min-height: 100vh;
+  align-content: center;
+}
+
+.status-card {
+  max-width: 640px;
+}
+
+.status-message {
+  color: var(--muted);
+  margin: 0;
+}
+
+.status-actions {
+  margin-top: 8px;
+}
+
 .card-head h2 {
   margin: 0 0 6px;
   font-size: 20px;

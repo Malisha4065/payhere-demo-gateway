@@ -171,18 +171,22 @@ public class PayHereDemoController {
 
     @GetMapping(value = "/return", produces = MediaType.TEXT_HTML_VALUE)
     public String returnUrl() {
-        return """
-                <h2>Payment attempt finished</h2>
-                <p>Check <a href="/api/payhere/events">/api/payhere/events</a> for the latest notify payload.</p>
-                """;
+        return statusPageHtml(
+                "Payment attempt finished",
+                "We will verify the payment using the notify webhook. Check the latest events to confirm status.",
+                "Back to Demo",
+                "/"
+        );
     }
 
     @GetMapping(value = "/cancel", produces = MediaType.TEXT_HTML_VALUE)
     public String cancelUrl() {
-        return """
-                <h2>Payment canceled</h2>
-                <p>The user backed out of checkout.</p>
-                """;
+        return statusPageHtml(
+                "Payment canceled",
+                "The checkout was canceled. If this was a mistake, you can restart the demo.",
+                "Back to Demo",
+                "/"
+        );
     }
 
     private void addEvent(Map<String, Object> event) {
@@ -253,6 +257,40 @@ public class PayHereDemoController {
                 .replace(">", "&gt;")
                 .replace("\"", "&quot;")
                 .replace("'", "&#39;");
+    }
+
+    private static String statusPageHtml(String title, String message, String primaryLabel, String primaryHref) {
+        return """
+                <!doctype html>
+                <html lang="en">
+                  <head>
+                    <meta charset="utf-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1">
+                    <title>%s</title>
+                    <link rel="stylesheet" href="/payhere.css">
+                  </head>
+                  <body>
+                    <div class="bg"></div>
+                    <main class="shell status-page">
+                      <section class="card status-card">
+                        <p class="kicker">PayHere Checkout</p>
+                        <h1>%s</h1>
+                        <p class="lede status-message">%s</p>
+                        <div class="actions status-actions">
+                          <a class="ghost" href="%s">%s</a>
+                          <a class="ghost" href="/api/payhere/events" target="_blank" rel="noopener">View Events</a>
+                        </div>
+                      </section>
+                    </main>
+                  </body>
+                </html>
+                """.formatted(
+                htmlEscape(title),
+                htmlEscape(title),
+                htmlEscape(message),
+                htmlEscape(primaryHref),
+                htmlEscape(primaryLabel)
+        );
     }
 
     private static String missingConfigHtml(String message) {
